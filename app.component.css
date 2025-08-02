@@ -1,0 +1,54 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.parsed-fields ul {
+    list-style: none;
+    padding: 0;
+}
+
+.parsed-fields li {
+    margin: 5px 0;
+}
+
+.active {
+    font-weight: bold;
+    color: green;
+}
+
+.dynamic-fields label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.days-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.day-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.description {
+    margin-top: 20px;
+}

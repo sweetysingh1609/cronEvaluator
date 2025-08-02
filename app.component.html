@@ -1,0 +1,77 @@
+<div class="container">
+  <h1>Cron Expression Visualizer</h1>
+
+  <div class="section">
+    <h2>Part 1: Cron Expression Evaluator</h2>
+    <label for="cronInput">Cron Expression:</label>
+    <input
+      id="cronInput"
+      [(ngModel)]="cronExpression"
+      (input)="onCronChange(cronExpression)"
+      placeholder="e.g., 0 15 10 * * ?"
+    />
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="parsed-fields">
+      <h3>Parsed Fields</h3>
+      <ul>
+        <li *ngFor="let field of fields; let i = index">
+          {{ fieldNames[i] }}: {{ field }}
+          <span [class.active]="isActive(field)">
+            ({{ isActive(field) ? 'active' : 'inactive' }})
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2: Recurrence Pattern Generator</h2>
+    <label>Recurrence Pattern</label>
+    <select [(ngModel)]="recurrencePattern" (change)="onPatternChange()">
+      <option value="Daily">Daily</option>
+      <option value="Weekly">Weekly</option>
+      <option value="Monthly">Monthly</option>
+    </select>
+
+    <div *ngIf="recurrencePattern === 'Daily'" class="dynamic-fields">
+      <label>Time</label>
+      <input type="time" [(ngModel)]="time" (change)="onTimeChange()" />
+    </div>
+
+    <div *ngIf="recurrencePattern === 'Weekly'" class="dynamic-fields">
+      <label>Time</label>
+      <input type="time" [(ngModel)]="time" (change)="onTimeChange()" />
+      <label>Days of Week</label>
+      <div class="days-row">
+        <label
+          *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']"
+          class="day-checkbox"
+        >
+          <input
+            type="checkbox"
+            [checked]="selectedDays.includes(day)"
+            (change)="onDayToggle(day)"
+          />
+          {{ day }}
+        </label>
+      </div>
+    </div>
+
+    <div *ngIf="recurrencePattern === 'Monthly'" class="dynamic-fields">
+      <label>Time</label>
+      <input type="time" [(ngModel)]="time" (change)="onTimeChange()" />
+      <label>Day of Month</label>
+      <select [(ngModel)]="selectedDate" (change)="onDateChange($event)">
+        <option *ngFor="let day of [].constructor(31); let i = index" [value]="i + 1">
+          {{ i + 1 }}
+        </option>
+      </select>
+    </div>
+
+    <div class="description">
+      <h3>Generated Description:</h3>
+      <p>{{ description }}</p>
+    </div>
+  </div>
+</div>
